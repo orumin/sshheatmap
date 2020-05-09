@@ -32,12 +32,25 @@ services:
     image: panubo/sshd
     container_name: sshd
     volumes:
-      - logs:/var/log
       - ./authorized_keys:/etc/authorized_keys/orumin:z
       - ./sshd_config:/etc/ssh/sshd_config:z
       - ./keys:/etc/ssh/keys:z
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://syslog:601"
+        syslog-facility: auth
+        tag: "sshd"
     environment:
       SSH_USERS: "orumin:1000:1000"
+    restart: always
+
+  syslog:
+    image: balabit/syslog-ng
+    container_name: syslog
+    volumes:
+      - ./syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf:z
+      - logs:/var/log
     restart: always
 
   SSHHeatmap:
@@ -48,7 +61,7 @@ services:
     volumes:
       - logs:/var/log:ro
     depends_on:
-      - sshd
+      - syslog
 
 volumes:
   logs:
