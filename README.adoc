@@ -48,7 +48,7 @@ services:
     volumes:
       - logs:/var/log:ro
     depends_on:
-      - syslog
+      - sshd
 
 volumes:
   logs:
