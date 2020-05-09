@@ -1,0 +1,14 @@
+version: '2'
+services:
+
+  SSHHeatmap:
+    image: orumin/sshheatmap
+    build: ./
+    container_name: sshheatmap
+    env_file: .env.sshheatmap
+    volumes:
+      - logs:/var/log:ro
+
+
+volumes:
+  logs:

@@ -1,0 +1,55 @@
+= SSHHeatmap container
+
+image:https://img.shields.io/docker/cloud/automated/orumin/sshheatmap.svg?style#flat-square
+image:https://img.shields.io/docker/cloud/build/orumin/sshheatmap.svg?style#flat-square
+image:https://img.shields.io/microbadger/image-size/orumin/sshheatmap.svg?style#flat-square
+image:https://img.shields.io/microbadger/layers/orumin/sshheatmap.svg?style#flat-square
+
+== What's this
+
+This is useful container for using https://github.com/meesaltena/SSHHeatmap[SSHHeatmap] with other container, like panubo/sshd.
+
+== How'to use
+
+* copy `env.sshheatmap.sample` to `.env.sshheatmap`
+* register and get token from https://ipinfo.io[ipinfo]
+* write your token to `API_KEY=` in `.env.sshheatmap`
+
+run commands as below:
+[source,sh]
+----
+docker-compose run --rm SSHHeatmap | sed -n '/<!DOCTYPE html>/,$p' > heatmap.html
+----
+
+=== docker-compose.yml
+
+example:
+[source,yaml]
+----
+version: '2'
+services:
+  sshd:
+    image: panubo/sshd
+    container_name: sshd
+    volumes:
+      - logs:/var/log
+      - ./authorized_keys:/etc/authorized_keys/orumin:z
+      - ./sshd_config:/etc/ssh/sshd_config:z
+      - ./keys:/etc/ssh/keys:z
+    environment:
+      SSH_USERS: "orumin:1000:1000"
+    restart: always
+
+  SSHHeatmap:
+    image: orumin/sshheatmap
+    build: ./
+    container_name: sshheatmap
+    env_file: .env.sshheatmap
+    volumes:
+      - logs:/var/log:ro
+    depends_on:
+      - syslog
+
+volumes:
+  logs:
+----
