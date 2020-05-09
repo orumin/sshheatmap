@@ -1,9 +1,9 @@
 = SSHHeatmap container
 
-image:https://img.shields.io/docker/cloud/automated/orumin/sshheatmap.svg?style#flat-square
-image:https://img.shields.io/docker/cloud/build/orumin/sshheatmap.svg?style#flat-square
-image:https://img.shields.io/microbadger/image-size/orumin/sshheatmap.svg?style#flat-square
-image:https://img.shields.io/microbadger/layers/orumin/sshheatmap.svg?style#flat-square
+image:https://img.shields.io/docker/cloud/automated/orumin/sshheatmap.svg?style#flat-square[]
+image:https://img.shields.io/docker/cloud/build/orumin/sshheatmap.svg?style#flat-square[]
+image:https://img.shields.io/microbadger/image-size/orumin/sshheatmap.svg?style#flat-square[]
+image:https://img.shields.io/microbadger/layers/orumin/sshheatmap.svg?style#flat-square[]
 
 == What's this
 
